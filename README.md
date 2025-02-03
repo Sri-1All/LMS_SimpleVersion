@@ -14,17 +14,18 @@ This is a Python-based Library Management System that uses SQLite for database m
 ## Installation
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/library-management-system.git
-   
+   git clone https://github.com/Sri-1All/library-management-system.git
+
 ## Run the application
 python lms.py
 
 ## Usage
-**Add books:** Allows the user to add new books to the system.
-**Search books:** Search for books by title, author, or genre.
-**Issue books:** Issue books to users with a lending record.
-**Return books:** Mark books as returned and update the lending record.
-**View lending records:** View a list of all issued books and their due dates.
+- **Add books**: Allows the user to add new books to the system.
+- **Search books**: Search for books by title, author, or genre.
+- **Issue books**: Issue books to users with a lending record.
+- **Return books**: Mark books as returned and update the lending record.
+- **View lending records**: View a list of all issued books and their due dates.
+
 
 ## Future Enhancements
 This system is fully functional with command-line interaction. You can enhance it further by:
