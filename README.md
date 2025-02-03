@@ -29,6 +29,6 @@ python lms.py
 
 ## Future Enhancements
 This system is fully functional with command-line interaction. You can enhance it further by:
-1.Adding a GUI (using Tkinter)
-2.Developing a web interface (using Flask or Django)
+-1.Adding a GUI (using Tkinter)
+-2.Developing a web interface (using Flask or Django)
 
