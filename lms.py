@@ -36,26 +36,32 @@ CREATE TABLE IF NOT EXISTS lending (
 conn.commit()
 
 # Functions for library management
-def add_book(title, author):
-    cursor.execute("INSERT INTO books (title, author) VALUES (?, ?)", (title, author))
-    conn.commit()
-    print(f"Book '{title}' by {author} added successfully.")
-
-def search_book(title):
-    cursor.execute("SELECT * FROM books WHERE title LIKE ?", ("%" + title + "%",))
+def view_books():
+    cursor.execute("SELECT * FROM books")
     books = cursor.fetchall()
     if books:
         for book in books:
             print(book)
     else:
-        print("No books found.")
+        print("No books available.")
 
-def add_borrower(name):
+def add_book():
+    title = input("Enter book title: ")
+    author = input("Enter book author: ")
+    cursor.execute("INSERT INTO books (title, author) VALUES (?, ?)", (title, author))
+    conn.commit()
+    print(f"Book '{title}' by {author} added successfully.")
+
+def add_borrower():
+    name = input("Enter borrower name: ")
     cursor.execute("INSERT INTO borrowers (name) VALUES (?)", (name,))
     conn.commit()
     print(f"Borrower '{name}' added successfully.")
 
-def issue_book(book_id, borrower_id, lend_date):
+def issue_book():
+    book_id = int(input("Enter book ID: "))
+    borrower_id = int(input("Enter borrower ID: "))
+    lend_date = input("Enter lending date (YYYY-MM-DD): ")
     cursor.execute("SELECT available FROM books WHERE book_id = ?", (book_id,))
     book = cursor.fetchone()
     if book and book[0] == 1:
@@ -67,7 +73,9 @@ def issue_book(book_id, borrower_id, lend_date):
     else:
         print("Book not available.")
 
-def return_book(book_id, return_date):
+def return_book():
+    book_id = int(input("Enter book ID: "))
+    return_date = input("Enter return date (YYYY-MM-DD): ")
     cursor.execute("SELECT lending_id FROM lending WHERE book_id = ? AND return_date IS NULL", (book_id,))
     lending = cursor.fetchone()
     if lending:
@@ -78,12 +86,33 @@ def return_book(book_id, return_date):
     else:
         print("No active lending record found for this book.")
 
-# Sample usage
-if __name__ == "__main__":
-    add_book("Python Programming", "Guido van Rossum")
-    add_borrower("Alice")
-    issue_book(1, 1, "2025-02-03")
-    return_book(1, "2025-02-10")
+def main():
+    while True:
+        print("\nLibrary Management System")
+        print("1. View Books")
+        print("2. Add Book")
+        print("3. Add Borrower")
+        print("4. Issue Book")
+        print("5. Return Book")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
 
-# Close connection
-conn.close()
+        if choice == "1":
+            view_books()
+        elif choice == "2":
+            add_book()
+        elif choice == "3":
+            add_borrower()
+        elif choice == "4":
+            issue_book()
+        elif choice == "5":
+            return_book()
+        elif choice == "6":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+    conn.close()
